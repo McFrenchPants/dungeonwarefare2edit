@@ -3,19 +3,16 @@ import './App.css';
 import './components/uploadMap'
 import FileInputComponent from './components/uploadMap';
 import DisplayDataComponent from './components/renderData';
-import FieldGridComponent from './components/editorCanvas';
+import EditorCanvas from './components/editorCanvas';
+import Header from './components/header';
 
 function App() {
   const [mapData, setMapData] = useState(null);
   console.log('Screen was rendered.');
   return (
     <div className="App">
-      <header className="App-header">
-        Map Editor
-        <div>[ Upload ] [ Save ]</div>
-      </header>
-      
-      <FieldGridComponent fieldArray={mapData.field}/>
+      <Header data={mapData}/>
+      <EditorCanvas data={mapData}/>
       <FileInputComponent setData={setMapData}/>
       <DisplayDataComponent jsonData={mapData}/>
     </div>

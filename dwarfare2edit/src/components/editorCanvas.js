@@ -2,10 +2,8 @@ import React from 'react';
 import { TextField, Grid, Typography } from '@mui/material';
 
 const FieldGridComponent = ({ fieldArray }) => {
-    console.log(fieldArray);
   return (
     <div>
-      <Typography variant="h6">Field Grid</Typography>
       <Grid container spacing={1}>
         {fieldArray.map((row, rowIndex) => (
           <Grid container item key={rowIndex}>
@@ -15,7 +13,7 @@ const FieldGridComponent = ({ fieldArray }) => {
                   size="small"
                   variant="outlined"
                   defaultValue={char}
-                  inputProps={{ style: { textAlign: 'center' } }}
+                  inputProps={{ style: { textAlign: 'center', padding: '8px 5px' } }}
                   style={{ width: '2rem' }}
                   disabled
                 />
@@ -28,4 +26,19 @@ const FieldGridComponent = ({ fieldArray }) => {
   );
 };
 
-export default FieldGridComponent;
+const EditorCanvas = ({data}) => {
+    const hasField = data !== null;
+    let field = null;
+    if(hasField){
+        field = Object.values(data.field);
+    }
+    return (
+        <>
+        {hasField && (
+            <FieldGridComponent fieldArray={field}/>
+        )}
+        </>
+    )
+};
+
+export default EditorCanvas;

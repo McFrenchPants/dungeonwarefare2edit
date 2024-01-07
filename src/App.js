@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import './components/uploadMap'
-import FileInputComponent from './components/uploadMap';
-import DisplayDataComponent from './components/renderData';
 import EditorCanvas from './components/editorCanvas';
+import EditorPanels from './components/editorPanels';
 import Header from './components/header';
 
 function App() {
@@ -11,10 +10,13 @@ function App() {
   console.log('Screen was rendered.');
   return (
     <div className="App">
-      <Header data={mapData}/>
-      <EditorCanvas data={mapData}/>
-      <FileInputComponent setData={setMapData}/>
-      <DisplayDataComponent jsonData={mapData}/>
+      <Header setData={setMapData} data={mapData}/>
+      {mapData && (
+        <>
+          <EditorCanvas data={mapData}/>
+          <EditorPanels data={mapData}/>
+        </>
+      )}
     </div>
   );
 }

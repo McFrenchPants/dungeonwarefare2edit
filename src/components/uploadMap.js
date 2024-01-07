@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Input, Typography } from '@mui/material';
+import { Button, Input } from '@mui/material';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
-const FileInputComponent = ({ setData }) => {
+const UploadMap = ({ setData }) => {
   const [file, setFile] = useState(null);
   const [jsonDataProperties, setJsonDataProperties] = useState(null);
 
@@ -9,11 +10,12 @@ const FileInputComponent = ({ setData }) => {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      setFile(selectedFile);
+      //setFile(selectedFile);
+      handleFileUpload(selectedFile);
     }
   };
 
-  const handleFileUpload = () => {
+  const handleFileUpload = (file) => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -31,7 +33,7 @@ const FileInputComponent = ({ setData }) => {
 
           // Convert properties to a hierarchical tree structure
           const treeStructure = convertToTreeStructure(properties);
-          console.log(treeStructure);
+          console.log("Loaded map from file.", treeStructure);
           setData(treeStructure); // Pass the data to the parent component
           setJsonDataProperties(treeStructure);
         } catch (error) {
@@ -41,7 +43,7 @@ const FileInputComponent = ({ setData }) => {
       reader.readAsText(file);
     } else {
       console.error('No file selected!');
-      setData('No file selected');
+      //setData('No file selected');
     }
   };
 
@@ -96,17 +98,10 @@ const FileInputComponent = ({ setData }) => {
     return treeStructure;
   };
 
-  const handleReadValue = (path) => {
-    if (jsonDataProperties) {
-      console.log('Keys in jsonDataProperties:', Object.keys(jsonDataProperties));
-      const value = jsonDataProperties[path.join('.')];
-      console.log(`Value at ${path.join('.')} : `, value);
-    }
-  };
+  //if(file){handleFileUpload()}
 
   return (
     <div>
-      <Typography variant="h6">Upload JSON File</Typography>
       <Input
         type="file"
         accept=".json"
@@ -115,23 +110,12 @@ const FileInputComponent = ({ setData }) => {
         id="file-input"
       />
       <label htmlFor="file-input">
-        <Button variant="contained" component="span">
-          Choose File
+        <Button variant="contained" component="span" startIcon={<DriveFolderUploadIcon/>}>
+          Upload
         </Button>
       </label>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleFileUpload}
-        disabled={!file}
-      >
-        Upload
-      </Button>
-      <div>
-        {"Provided File: " + (file ? file.name : "No file selected")}<br />
-      </div>
     </div>
   );
 };
 
-export default FileInputComponent;
+export default UploadMap;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, ButtonGroup, Typography} from '@mui/material';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import SaveIcon from '@mui/icons-material/Save';
+import { ButtonGroup, Typography} from '@mui/material';
+import UploadMap from './uploadMap';
+import SaveMap from './saveMap';
 
-const Header = ({ data }) => {
+const Header = ({ setData, data }) => {
   let title = 'No map loaded.';
 
   if(data !== null){
@@ -13,8 +13,8 @@ const Header = ({ data }) => {
     <header className="App-header">
         <Typography variant="h6">{title}</Typography>
         <ButtonGroup variant="outlined" aria-label="outlined button group">
-          <Button startIcon={<DriveFolderUploadIcon/>}>Upload</Button>
-          <Button startIcon={<SaveIcon/>}>Save</Button>
+          <UploadMap setData={setData}/>
+          <SaveMap data={data}/>
         </ButtonGroup>
       </header>
   );

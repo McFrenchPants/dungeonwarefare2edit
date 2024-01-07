@@ -7,7 +7,7 @@ const DisplayDataComponent = ({ jsonData }) => {
   const handleDisplayValue = () => {
     // Replace this with your logic to extract and display specific values
     // For now, let's just display the entire JSON for demonstration purposes
-    setDisplayedValue(JSON.stringify(jsonData, null, 2));
+    //setDisplayedValue(JSON.stringify(jsonData, null, 2));
   };
 
   return (
@@ -22,10 +22,10 @@ const DisplayDataComponent = ({ jsonData }) => {
         >
           Display Values
         </Button>
-        {displayedValue && (
+        {jsonData && (
           <div>
             <Typography variant="subtitle1">Displayed Values:</Typography>
-            <pre>{displayedValue}</pre>
+            <pre>{jsonData.title}</pre>
           </div>
         )}
       </CardContent>

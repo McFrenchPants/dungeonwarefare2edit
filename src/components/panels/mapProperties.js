@@ -5,9 +5,26 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 const MapProperties = ({data}) => {
 
-    const tiles = [{value: "mines", label: "Mines"}];
-    const vconditions = [{value: "CollectGold", label: "Collect Gold"}];
-
+    const tiles = [
+        {value:"stone", label:"Stone"},
+        {value:"mines", label:"Mines"},
+        {value:"dungeon", label:"Dungeon"},
+        {value:"prison", label:"Prison"},
+        {value:"ash", label:"Ash"},
+        {value:"ice", label:"Ice"},
+        {value:"castle", label:"Castle"},
+        {value:"jungle", label:"Jungle"},
+        {value:"desert", label:"Desert"}
+    ];
+    const vconditions = [
+        {value: "CollectGold", label: "Collect Gold"},
+        {value: "Defense", label: "Defense (Normal)"}
+    ];
+    const weatherEffects = [
+        {value: "Rain", label: "Rain"},
+        {value: "DustStorm", label: "Dust Storm"},
+        {value: "Snow", label: "Snow"}
+    ];
     return(
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} columns={16}>
@@ -17,6 +34,7 @@ const MapProperties = ({data}) => {
                         id="map-title"
                         defaultValue={data.title}
                         size="small"
+                        fullWidth
                         variant="standard"
                     />
                 </Grid>
@@ -27,6 +45,7 @@ const MapProperties = ({data}) => {
                         label="Tile Theme"
                         value={data.tileset}
                         size="small"
+                        fullWidth
                         SelectProps={{
                             native: true,
                         }}
@@ -44,6 +63,7 @@ const MapProperties = ({data}) => {
                         id="start-gold"
                         defaultValue={data.startGold}
                         size="small"
+                        fullWidth
                         variant="standard"
                     />
                 </Grid>
@@ -54,6 +74,7 @@ const MapProperties = ({data}) => {
                         label="Victory Condition"
                         value={data.victoryCondition}
                         size="small"
+                        fullWidth
                         SelectProps={{
                             native: true,
                         }}
@@ -71,13 +92,53 @@ const MapProperties = ({data}) => {
                         id="difficulty"
                         defaultValue={data.difficultyFactor}
                         size="small"
+                        fullWidth
                         variant="standard"
                     />
                 </Grid>
                 
                 <Grid xs={8}>
-                    Victory Parameters<br/>
+                    <TextField
+                        id="weather-effect-type"
+                        select
+                        label="Weather Effect"
+                        value={data.weatherEffectType}
+                        size="small"
+                        fullWidth
+                        SelectProps={{
+                            native: true,
+                        }}
+                        >
+                        {weatherEffects.map((option) => (
+                            <option key={option.value} value={option.value}>
+                            {option.label}
+                            </option>
+                        ))}
+                    </TextField>
                 </Grid>
+                {data.victoryCondition === "CollectGold" && (
+                <Grid xs={16}>
+                    Victory Parameters<br/>
+                    <Grid xs={8}>
+                        <TextField
+                            label="Gold"
+                            id="victory-gold"
+                            defaultValue={data.victoryParameters.gold}
+                            size="small"
+                            variant="standard"
+                        />
+                        <Grid xs={8}>
+                            <TextField
+                                label="Time"
+                                id="victory-time"
+                                defaultValue={data.victoryParameters.time}
+                                size="small"
+                                variant="standard"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                )}
             </Grid>
         </Box>
     )

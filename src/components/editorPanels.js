@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MapProperties from './panels/mapProperties';
+import TileSelector from './panels/tileset';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +60,7 @@ export default function EditorPanels({data}) {
         <MapProperties data={data}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Select a tile and click the map to place it.<br/>
+        <TileSelector data={data}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Moving Platforms<br/>

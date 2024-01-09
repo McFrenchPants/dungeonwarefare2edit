@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MapProperties from './panels/mapProperties';
 import TileSelector from './panels/tileset';
+import Behaviors from './panels/behaviors';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,7 +51,7 @@ export default function EditorPanels({data}) {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="map editor functions">
           <Tab label="Map Properties" {...a11yProps(0)} />
           <Tab label="Tiles" {...a11yProps(1)} />
           <Tab label="Behaviors" {...a11yProps(2)} />
@@ -63,13 +64,7 @@ export default function EditorPanels({data}) {
         <TileSelector data={data}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Moving Platforms<br/>
-        Rails<br/>
-        Decorations<br/>
-        Pre-Built Traps<br/>
-        Allowed Enemies<br/>
-        Waves<br/>
-        Route
+        <Behaviors data={data}/>
       </CustomTabPanel>
     </Box>
   );

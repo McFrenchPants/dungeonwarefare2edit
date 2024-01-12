@@ -6,30 +6,33 @@ import Grid from '@mui/material/Unstable_Grid2';
 const MovingPlatform = ({data}) => {
     const [platformProperties, setPlatformProperties] = useState({
         "row": 0,
-            "col": 0,
-            "routeH": [0],
-            "routeV": [0],
-            "isRouteLooped": false,
-            "moveSpeed": 0.0,
-            "initialMoveDelay": 0,
-            "terrain": ["10, 10"]
+        "col": 0,
+        "routeH": [0, -1],
+        "routeV": [1, 0],
+        "isRouteLooped": true,
+        "moveSpeed": 0,
+        "initialMoveDelay": 0,
+        "stopTime": 0,
+        "terrain": ["0"]
     });
 
     useEffect(() => {
         setPlatformProperties({
             "row": data.row,
             "col": data.col,
-            "routeH": Object.entries(data.routeH),
-            "routeV": Object.entries(data.routeV),
+            "routeH": Object.values(data.routeH),
+            "routeV": Object.values(data.routeV),
             "isRouteLooped": data.isRouteLooped,
             "moveSpeed": data.moveSpeed,
+            "stopTime": data.stopTime,
             "initialMoveDelay": data.initialMoveDelay,
-            "terrain": Object.entries(data.terrain)
+            "terrain": Object.values(data.terrain)
         })
-      },[]);
+      },[data]);
 
     const handleEdit = (e) =>{
-
+        const {name, value} = e.target;
+        setPlatformProperties({ ...platformProperties, [name]: value});
     }
 
     return (
@@ -39,7 +42,9 @@ const MovingPlatform = ({data}) => {
                     <TextField
                         label="Row"
                         id="platform-row"
+                        name="row"
                         value={platformProperties.row}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -50,10 +55,11 @@ const MovingPlatform = ({data}) => {
                         id="platform-column"
                         label="Column"
                         value={platformProperties.col}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
-                        >0
+                        >
                     </TextField>
                 </Grid>
                 <Grid xs={4}>
@@ -61,6 +67,7 @@ const MovingPlatform = ({data}) => {
                         label="Horizontal Route"
                         id="platform-routeH"
                         value={platformProperties.routeH}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -71,6 +78,7 @@ const MovingPlatform = ({data}) => {
                         id="platform-routeV"
                         label="Vertical Route"
                         value={platformProperties.routeV}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -82,6 +90,7 @@ const MovingPlatform = ({data}) => {
                         label="Loop this Route"
                         id="platform-looped"
                         value={platformProperties.isRouteLooped}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -92,6 +101,18 @@ const MovingPlatform = ({data}) => {
                         id="platform-moveSpeed"
                         label="Movement Speed"
                         value={platformProperties.moveSpeed}
+                        onChange={handleEdit}
+                        size="small"
+                        fullWidth
+                        variant="standard"
+                    />
+                </Grid>
+                <Grid xs={4}>
+                    <TextField
+                        label="Initial Move Delay"
+                        id="platform-initial-move-delay"
+                        value={platformProperties.initialMoveDelay}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -102,6 +123,7 @@ const MovingPlatform = ({data}) => {
                         label="Stop Time"
                         id="platform-stop-time"
                         value={platformProperties.stopTime}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -112,6 +134,7 @@ const MovingPlatform = ({data}) => {
                         label="Terrain"
                         id="platform-terrain"
                         value={platformProperties.terrain}
+                        onChange={handleEdit}
                         size="small"
                         fullWidth
                         variant="standard"

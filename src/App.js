@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import {useState} from 'react';
 import './App.css';
 import './components/uploadMap'
 import EditorCanvas from './components/editorCanvas';
 import EditorPanels from './components/editorPanels';
 import Header from './components/header';
+import { DataContext } from './dataContext';
 
 function App() {
-  const [mapData, setMapData] = useState(null);
+    const [mapData, setMapData] = useState();
+    const mapState = {mapData, setMapData};
+
   console.log('Screen was rendered.');
   return (
     <div className="App">
-      <Header setData={setMapData} data={mapData}/>
-      {mapData && (
-        <>
-          <EditorCanvas data={mapData}/>
-          <EditorPanels data={mapData}/>
-        </>
-      )}
+        <DataContext.Provider value={mapState}>
+            <Header/>
+            {mapData &&
+                <>
+                    <EditorCanvas/>
+                    <EditorPanels/>
+                </>
+            }
+        </DataContext.Provider>
     </div>
   );
 }
-
 export default App;

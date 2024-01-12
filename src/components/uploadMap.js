@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Input } from '@mui/material';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import { DataContext } from '../dataContext';
 
-const UploadMap = ({ setData }) => {
+const UploadMap = () => {
   const [file, setFile] = useState(null);
   const [jsonDataProperties, setJsonDataProperties] = useState(null);
+
+  const {mapData, setMapData} = useContext(DataContext);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      //setFile(selectedFile);
+      //TODO: If a map is already loaded, better ask to make sure we can overwrite everything with the new upload
       handleFileUpload(selectedFile);
     }
   };
@@ -34,7 +37,7 @@ const UploadMap = ({ setData }) => {
           // Convert properties to a hierarchical tree structure
           const treeStructure = convertToTreeStructure(properties);
           console.log("Loaded map from file.", treeStructure);
-          setData(treeStructure); // Pass the data to the parent component
+          setMapData(treeStructure); // Set the current file
           setJsonDataProperties(treeStructure);
         } catch (error) {
           console.error('Error parsing JSON:', error);

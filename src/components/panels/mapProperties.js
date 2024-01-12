@@ -1,10 +1,11 @@
+import React, { useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
+import { DataContext } from '../../dataContext';
 
-
-const MapProperties = ({data}) => {
-
+const MapProperties = () => {
+    const {mapData, setMapData} = useContext(DataContext);
     const tiles = [
         {value:"stone", label:"Stone"},
         {value:"mines", label:"Mines"},
@@ -32,7 +33,7 @@ const MapProperties = ({data}) => {
                     <TextField
                         label="Map Title"
                         id="map-title"
-                        defaultValue={data.title}
+                        defaultValue={mapData.title}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -43,7 +44,7 @@ const MapProperties = ({data}) => {
                         id="tileset"
                         select
                         label="Tile Theme"
-                        value={data.tileset}
+                        value={mapData.tileset}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -61,7 +62,7 @@ const MapProperties = ({data}) => {
                     <TextField
                         label="Starting Gold"
                         id="start-gold"
-                        defaultValue={data.startGold}
+                        defaultValue={mapData.startGold}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -72,7 +73,7 @@ const MapProperties = ({data}) => {
                         id="victory-condition"
                         select
                         label="Victory Condition"
-                        value={data.victoryCondition}
+                        value={mapData.victoryCondition}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -90,7 +91,7 @@ const MapProperties = ({data}) => {
                     <TextField
                         label="Difficulty"
                         id="difficulty"
-                        defaultValue={data.difficultyFactor}
+                        defaultValue={mapData.difficultyFactor}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -102,7 +103,7 @@ const MapProperties = ({data}) => {
                         id="weather-effect-type"
                         select
                         label="Weather Effect"
-                        value={data.weatherEffectType}
+                        value={mapData.weatherEffectType}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -116,14 +117,14 @@ const MapProperties = ({data}) => {
                         ))}
                     </TextField>
                 </Grid>
-                {data.victoryCondition === "CollectGold" && (
+                {mapData.victoryCondition === "CollectGold" && (
                 <Grid xs={16}>
                     Victory Parameters<br/>
                     <Grid xs={8}>
                         <TextField
                             label="Gold"
                             id="victory-gold"
-                            defaultValue={data.victoryParameters.gold}
+                            defaultValue={mapData.victoryParameters.gold}
                             size="small"
                             variant="standard"
                         />
@@ -131,7 +132,7 @@ const MapProperties = ({data}) => {
                             <TextField
                                 label="Time"
                                 id="victory-time"
-                                defaultValue={data.victoryParameters.time}
+                                defaultValue={mapData.victoryParameters.time}
                                 size="small"
                                 variant="standard"
                             />

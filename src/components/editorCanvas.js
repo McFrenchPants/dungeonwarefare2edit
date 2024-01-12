@@ -1,5 +1,6 @@
-import React from 'react';
-import { TextField, Grid, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { TextField, Grid } from '@mui/material';
+import { DataContext } from '../dataContext';
 
 const FieldGridComponent = ({ fieldArray }) => {
   return (
@@ -26,19 +27,21 @@ const FieldGridComponent = ({ fieldArray }) => {
   );
 };
 
-const EditorCanvas = ({data}) => {
-    const hasField = data !== null;
-    let field = null;
-    if(hasField){
-        field = Object.values(data.field);
-    }
-    return (
-        <>
-        {hasField && (
-            <FieldGridComponent fieldArray={field}/>
-        )}
-        </>
-    )
+const EditorCanvas = () => {
+  const {mapData, setMapData} = useContext(DataContext);
+  console.log(mapData);
+  const hasField = mapData !== null;
+  let field = null;
+  if(hasField){
+      field = Object.values(mapData.field);
+  }
+  return (
+      <>
+      {hasField && (
+          <FieldGridComponent fieldArray={field}/>
+      )}
+      </>
+  )
 };
 
 export default EditorCanvas;

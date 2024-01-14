@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import { DataContext } from '../../dataContext';
+import { useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
@@ -8,9 +7,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MovingPlatform from '../movingPlatform';
+import { useAppState } from '../../appContext';
 
 const Behaviors = () => {
-    const {mapData, setMapData} = useContext(DataContext);
+    const {mapData, setMapData} = useAppState();
 
     const platform = mapData.movingPlatforms !== undefined ? mapData.movingPlatforms[0] : [{
         "row": 0,
@@ -24,7 +24,6 @@ const Behaviors = () => {
         "terrain": ["0"]
     }];
     const [currentPlatform, setCurrentPlatform] = useState(platform); 
-
 
     const ListItems = ({title, items, setCurrentItem}) => {
 

@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { TextField, Grid } from '@mui/material';
-import { DataContext } from '../dataContext';
+import React from 'react';
+import { TextField, Grid, LinearProgress } from '@mui/material';
+import { useAppState } from '../appContext';
 
 const FieldGridComponent = ({ fieldArray }) => {
   return (
@@ -28,8 +28,7 @@ const FieldGridComponent = ({ fieldArray }) => {
 };
 
 const EditorCanvas = () => {
-  const {mapData, setMapData} = useContext(DataContext);
-  console.log(mapData);
+  const { mapData} = useAppState();
   const hasField = mapData !== null;
   let field = null;
   if(hasField){
@@ -37,9 +36,11 @@ const EditorCanvas = () => {
   }
   return (
       <>
-      {hasField && (
-          <FieldGridComponent fieldArray={field}/>
-      )}
+        {hasField && (
+          <div>
+            <FieldGridComponent fieldArray={field} mapData={mapData}/>
+          </div>
+        )}
       </>
   )
 };

@@ -1,27 +1,29 @@
-import {useState} from 'react';
 import './App.css';
-import './components/uploadMap'
+import './components/actions/uploadMap'
 import EditorCanvas from './components/editorCanvas';
 import EditorPanels from './components/editorPanels';
 import Header from './components/header';
-import { DataContext } from './dataContext';
+import AlertDialog from './components/alertDialog';
+import { AppProvider, useAppState } from './appContext';
+import { LinearProgress } from '@mui/material';
 
 function App() {
-    const [mapData, setMapData] = useState();
-    const mapState = {mapData, setMapData};
-
   console.log('Screen was rendered.');
+  const { mapData, loading } = useAppState();
+  console.log("loading? ", loading);
   return (
     <div className="App">
-        <DataContext.Provider value={mapState}>
-            <Header/>
-            {mapData &&
-                <>
-                    <EditorCanvas/>
-                    <EditorPanels/>
-                </>
-            }
-        </DataContext.Provider>
+          <AlertDialog/>
+          <Header/>
+          {(loading && !mapData) && 
+            <LinearProgress /> 
+          }
+          {mapData &&
+            <>
+              <EditorCanvas/>
+              <EditorPanels/>
+            </>
+          }
     </div>
   );
 }

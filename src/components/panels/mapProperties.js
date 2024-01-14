@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import { DataContext } from '../../dataContext';
+import { useAppState } from '../../appContext';
 
 const MapProperties = () => {
-    const {mapData, setMapData} = useContext(DataContext);
+    const { mapData } = useAppState();
     const tiles = [
         {value:"stone", label:"Stone"},
         {value:"mines", label:"Mines"},

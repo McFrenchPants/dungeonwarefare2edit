@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Button, Input } from '@mui/material';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import { DataContext } from '../dataContext';
+import { useAppState } from '../../appContext';
 
 const UploadMap = () => {
   const [file, setFile] = useState(null);
   const [jsonDataProperties, setJsonDataProperties] = useState(null);
 
-  const {mapData, setMapData} = useContext(DataContext);
+  const {mapData, setMapData} = useAppState();
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -38,7 +38,7 @@ const UploadMap = () => {
           const treeStructure = convertToTreeStructure(properties);
           console.log("Loaded map from file.", treeStructure);
           setMapData(treeStructure); // Set the current file
-          setJsonDataProperties(treeStructure);
+          //setJsonDataProperties(treeStructure);
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }

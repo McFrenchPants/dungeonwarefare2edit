@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function EditorPanels({data}) {
+export default function EditorPanels() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -58,13 +58,13 @@ export default function EditorPanels({data}) {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <MapProperties data={data}/>
+        <MapProperties/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TileSelector data={data}/>
+        <TileSelector/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Behaviors data={data}/>
+        <Behaviors/>
       </CustomTabPanel>
     </Box>
   );

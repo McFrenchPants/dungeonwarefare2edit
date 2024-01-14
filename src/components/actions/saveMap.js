@@ -5,7 +5,7 @@ const SaveMap = () => {
 
     return (
         <div>
-            <Button startIcon={<SaveIcon/>}>Save</Button>
+            <Button variant="contained" startIcon={<SaveIcon/>}>Save</Button>
         </div>
     )
 }

@@ -1,7 +1,5 @@
-import { createContext } from 'react';
-
-const mapStructure = {
-    "title": "New Dungeon",
+const mapDefaults = {
+    "title": "Example Dungeon",
     "startGold": 10000,
     "tileset": "mines",
     "weatherEffectType": "Rain",
@@ -9,7 +7,7 @@ const mapStructure = {
     "route": [
         [ "A", "9" ],
         [ "B", "8" ],
-        [ "C", "7" ],
+        [ "C", "7" ]
     ],
     "victoryCondition": "CollectGold",
     "victoryParameters":  {"gold": 20000, "time": 600},
@@ -34,7 +32,7 @@ const mapStructure = {
         "1111111161166110111101VV13331",
         "11111166611161111111110003931",
         "11111111111111111111111113331",
-        "11111111111111111111111111111",
+        "11111111111111111111111111111"
         
     ],
     "movingPlatforms": [
@@ -47,7 +45,7 @@ const mapStructure = {
             "moveSpeed": 0.15,
             "stopTime": 0,
             "terrain": [
-                "1",
+                "1"
             ]
         },
         {
@@ -67,7 +65,7 @@ const mapStructure = {
     ],
     "rails": [
         { "startRow": 2, "startCol": 6, "endRow": 2, "endCol": 12, "interval": 3.5 },
-        { "type": "Bison", "startRow": 3, "startCol": 15, "endRow": 3, "endCol": 20, "interval": 0.3, "duration": 5 },
+        { "type": "Bison", "startRow": 3, "startCol": 15, "endRow": 3, "endCol": 20, "interval": 0.3, "duration": 5 }
     ],
     "decorations": [
         { "type": "Torch", "row": 6, "col": 8, "rotation": 270 },
@@ -92,12 +90,12 @@ const mapStructure = {
         },
 
         { "type": "Spawner", "row": 16, "col": 4, "rotation": 0, "spawnerUnitType": "Warrior", "spawnerRouteIndex": 0, "spawnerInterval": 3 },
-        { "type": "Spawner", "row": 18, "col": 4, "rotation": 0, "spawnerUnitType": "Digger", "spawnerRouteIndex": 1, "spawnerInterval": 5 },
+        { "type": "Spawner", "row": 18, "col": 4, "rotation": 0, "spawnerUnitType": "Digger", "spawnerRouteIndex": 1, "spawnerInterval": 5 }
     ],
     "prebuiltTraps": [
         { "row": 0, "col": 0, "fieldIndex": 1, "type": "Dart", "tier": 0, "direction": "Right" }, 
         { "row": 0, "col": 1, "fieldIndex": 2, "type": "Spike", "tier": 0, "direction": "Down" },
-        { "row": 6, "col": 6, "fieldIndex": 0, "type": "Harpoon", "tier": 0, "direction": "Up" },
+        { "row": 6, "col": 6, "fieldIndex": 0, "type": "Harpoon", "tier": 0, "direction": "Up" }
     ],
     "allowedUnitTypes": [
         "Peasant",
@@ -149,23 +147,5 @@ const mapStructure = {
             ]
         }
     ]
-};
-export const DataContext = createContext({
-    mapData: mapStructure,
-    setMapData: () => {}
-});
-
-const DataProvider = ({ children }) => {
-    const [mapData, setMapData] = useState();
-    return (
-      <DataContext.Provider value={{ mapData, setMapData }}>
-        {withData(children)}
-      </DataContext.Provider>
-    );
-  };
-  const withData = (Child) => (props) => (
-    <DataContext.Consumer>
-      {(context) => <Child {...props} {...context} />}
-    </DataContext.Consumer>
-  );
-  export {DataProvider, withData};
+}
+export default mapDefaults;

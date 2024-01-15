@@ -9,7 +9,7 @@ const Header = () => {
   const {mapData} = useAppState();
   let title = 'No map loaded.';
 
-  if(!mapData == null){
+  if(mapData){
     title=mapData.title;
   }
   return (

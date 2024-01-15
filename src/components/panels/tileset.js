@@ -1,7 +1,9 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button, Typography} from '@mui/material';
+import { useAppState } from '../../appContext';
 
 const TileSelector = () => {
+    const {activeTile, setActiveTile} = useAppState();
 
     const terrainTiles = [
         {value: "0", label: "Floor"},
@@ -67,6 +69,11 @@ const TileSelector = () => {
     ];
     const rails = [];
 
+    const handleTerrainClick = (newTile) => {
+        //set state for active tile to place
+        setActiveTile(newTile);
+    }
+
     return (
         <div>
             <Grid container spacing={0} columns={16}>
@@ -74,7 +81,12 @@ const TileSelector = () => {
                 <Grid container spacing={1} columns={10}>                    
                     {terrainTiles.map((option) =>(
                         <Grid xs={1}>
-                            <Button variant="contained" size="small" sx={{width: "50px", fontSize: "0.6rem"}}>
+                            <Button 
+                                variant="contained" 
+                                size="small" 
+                                sx={{width: "50px", fontSize: "0.6rem"}}
+                                onClick={()=>handleTerrainClick(option.value)}
+                            >
                                 {option.label}
                             </Button>
                         </Grid>

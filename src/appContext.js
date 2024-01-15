@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
     const [alert, setAlert] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [activeTile, setActiveTile] = useState(null);
 
     const api = {
         alertAction: (action) => actionHandler(action),
@@ -29,6 +30,7 @@ const AppProvider = ({ children }) => {
         }else if (action === 'resetMap'){
             console.log("Load map defaults");
             setLoading(true);
+            setMapData(null);
             // Loading screen is never shown unless we wait to let the app render
             setTimeout(() => {
                 setMapData(mapDefaults);
@@ -48,6 +50,8 @@ const AppProvider = ({ children }) => {
             setShowAlert,
             loading,
             setLoading,
+            activeTile,
+            setActiveTile,
             ...api
           }}>
         {children}

@@ -7,21 +7,20 @@ import { Paper, Typography } from '@mui/material';
 const Inspector = () => {
     const { mapData, selectedTile } = useAppState();
  
-    const decorations = mapData.decorations;
     const field = mapData.field;
-    const traps = mapData.prebuiltTraps;
+    let traps = [{}];
     let tile = [{'row':0,'col':0}];
+    let decorations = {};
 
-    if(selectedTile){
-        tile = selectedTile;
-    }
+    if(mapData.prebuiltTraps){traps=Object.entries(mapData.prebuiltTraps);}
+    if(mapData.decorations){decorations=Object.entries(mapData.decorations);}
+    if(selectedTile){tile = selectedTile;}
 
     const getDecoration = decorations.find(
         item => item.row === tile.row && item.col === tile.col
     );
     const matchingDecoration = getDecoration ? getDecoration.type : 'none';
     
-
     function getTerrainAt(row, column) {
         if (field[row] && field[row][column]) {
           return field[row][column];
@@ -32,12 +31,15 @@ const Inspector = () => {
     };
 
     function getTrapAt(row, column) {
-        const matchingTraps = traps.filter(trap => trap.row === row && trap.col === column);
+        if(Object.keys(traps[0]).length > 0){
+            const matchingTraps = traps.filter(trap => trap.row === row && trap.col === column);
     
-        if (matchingTraps.length > 0) {
-            return matchingTraps.map((trap, index) => (
-                <div key={index}>{trap.type}</div>
-            ));
+            if (matchingTraps.length > 0) {
+                console.log("matchingTraps: ", matchingTraps);
+                return matchingTraps.map((trap, index) => (
+                    <div key={index}>{trap.type}</div>
+                ));
+            }
         } else {
             return "none"; // or some default value
         }

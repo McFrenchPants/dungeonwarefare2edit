@@ -1,0 +1,131 @@
+{
+    "title": "Crunch",
+    "startGold": 4000,
+    "tileset": "prison",
+    "weatherEffectType": "DustStorm",
+	"difficultyFactor": 5,
+    "route": [
+        [ "A", "9" ],
+    ],
+    "victoryCondition": "Defense",
+    "field": [ 
+        "111111111111111111111",
+		"111111111111111111111",
+        "111111110333011111111",
+		"111111100393001111111",
+		"111000001333100000111",
+		"11100#000000#00111111",
+		"11100000#000000000111",
+		"1110000#010#000110111",
+		"11111000#1000#0000111",
+		"11100000#100001000111",
+		"111000000000#00000111",
+		"1110000#001000##00111",
+		"11100#10001000#000111",
+		"111000000#00000000111",
+		"1110#11#0000###000111",
+		"111000000000000100111",
+		"111000000001#00000111",
+		"1110000#00#1000000111",
+		"11100##10000000#00111",
+		"11100000#000010000111",
+		"111000000000#10000111",
+		"111111111AAA111111111",
+		"111111111111111111111",
+		
+    ],
+    "movingPlatforms": [
+        {
+            "row": 3,
+            "col": 3,
+            "routeH": [1, 1, 1, 1],
+            "routeV": [0, 0, 0, 0],
+            "isRouteLooped": false,
+            "moveSpeed": 0.15,
+            "stopTime": 10,
+			"initialMoveDelay": 10,
+            "terrain": [
+                "11",
+				"11",
+				"11",
+				"11",
+				"22",
+				"11",
+				"11",
+				"11",
+				"11",
+				"11",
+				"22",
+				"11",
+				"11",
+				"11",
+				"11",
+            ]
+        },
+		{
+            "row": 3,
+            "col": 16,
+            "routeH": [-1, -1, -1, -1],
+            "routeV": [0, 0, 0, 0],
+            "isRouteLooped": false,
+            "moveSpeed": 0.15,
+            "stopTime": 10,
+			"initialMoveDelay": 10,
+            "terrain": [
+                "11",
+				"11",
+				"22",
+				"11",
+				"11",
+				"11",
+				"11",
+				"22",
+				"11",
+				"11",
+				"11",
+				"11",
+				"22",
+				"11",
+				"11",
+            ]
+        }
+    ],
+    "allowedUnitTypes": [
+        "Peasant",
+        "King",
+        "Adventurer",
+        "Warrior",
+        "Knight",
+        "Priest",
+        "Thief",
+        "Wizard",
+        "Golem",
+        "Marksman",
+        "Warrior_Veteran",
+        "Druid",
+        "Journeyman",
+        "Brute",
+        "Berserker",
+        "Vanguard",
+        "HeavyArmor"
+    ],
+    "waves": [
+        {
+            "wave": 1, 
+            "replaceGeneratedWave": false,
+            "appendToGeneratedWave": true,
+            "spawn": [
+                { "interval": 0.2, "types": [ "King" ], "typeInterval": 0.1, "count": 3, "routes": [ 0 ] },
+                { "interval": 2.0, "types": [ "Warrior", "Peasant" ], "typeInterval": 1.0, "count": 3, "routes": [ 0] }
+            ]
+        },
+        {
+            "wave": 2,
+            "replaceGeneratedWave": true,
+            "appendToGeneratedWave": false,
+            "spawn": [
+                { "interval": 1, "types": [ "King" ], "typeInterval": 0.1, "count": 3, "routes": [ 0 ] }
+            ]
+        }
+    ]
+}

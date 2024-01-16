@@ -35,11 +35,13 @@ const Behaviors = () => {
                         {Object.entries(items).map((item,idx) => (
                             <ListItem disablePadding>
                                 <ListItemButton onClick={() => setCurrentItem(items[idx])}>
-                                <ListItemText primary={title + " " + idx} />
+                                <ListItemText primary={title + " #" + idx} />
                                 </ListItemButton>
                             </ListItem>
                         ))}
                     </List>
+                    <Button variant="contained" size="small" sx={{width: "50px", fontSize: "0.6rem"}}>Add</Button>
+                    <Button variant="contained" size="small" sx={{width: "50px", fontSize: "0.6rem"}}>Del</Button>
                 </nav>
             </Box>
         )
@@ -54,8 +56,7 @@ const Behaviors = () => {
                         items={mapData.movingPlatforms}
                         setCurrentItem={setCurrentPlatform}
                     />
-                    <Button variant="contained" size="small" sx={{width: "50px", fontSize: "0.6rem"}}>Add</Button>
-                    <Button variant="contained" size="small" sx={{width: "50px", fontSize: "0.6rem"}}>Del</Button>
+                    
                 </Grid>
                 <Grid container spacing={1} columns={4}>
                     <MovingPlatform data={currentPlatform}/>

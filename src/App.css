@@ -17,4 +17,7 @@
   color: #61dafb;
 }
 
-
+.selectedTile {
+  outline: 2px solid #ff6400;
+  outline-offset: -4px;
+}

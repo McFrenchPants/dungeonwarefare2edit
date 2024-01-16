@@ -4,18 +4,18 @@ import EditorPanels from './components/editorPanels';
 import Header from './components/header';
 import AlertDialog from './components/alertDialog';
 import { useAppState } from './appContext';
-import { LinearProgress, ThemeProvider, createTheme } from '@mui/material';
+import { CssBaseline, LinearProgress, ThemeProvider, createTheme } from '@mui/material';
 import dwTheme from './dwTheme';
-//import { createMuiTheme } from '@mui/material/styles';
 
-const theme = createTheme({dwTheme});
+const theme = createTheme(dwTheme);
 
 function App() {
   console.log('Screen was rendered.');
   const { mapData, loading } = useAppState();
   return (
-    <div className="App">
       <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
           <AlertDialog/>
           <Header/>
           {(loading && !mapData) && 
@@ -27,8 +27,8 @@ function App() {
               <EditorPanels/>
             </>
           }
+          </div>
         </ThemeProvider>
-    </div>
   );
 }
 export default App;

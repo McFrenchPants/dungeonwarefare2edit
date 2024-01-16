@@ -1,6 +1,6 @@
 const dwTheme = {
   typography: {
-    fontFamily: ["Quicksand", "sans-serif", "Arial"].join(",")
+    fontFamily: ["Arvo", "Helvetica", "Arial", "sans-serif"].join(",")
   },
   palette: {
     mode: 'dark',
@@ -14,8 +14,5 @@ const dwTheme = {
       default: '#101010',
     },
   },
-  typography: {
-    fontFamily: '"Arvo", "Helvetica", "Arial", sans-serif',
-  }
 };
 export default dwTheme;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { TextField, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useAppState } from '../appContext';
 
 const EditorCanvas = () => {
-  const { mapData, setMapData, activeTile} = useAppState();
+  const { mapData, setMapData, activeTile, selectedTile, setSelectedTile } = useAppState();
   const hasField = mapData !== null;
   let field = null;
   if(hasField){
@@ -11,10 +11,14 @@ const EditorCanvas = () => {
   }
 
   const updateField = (rowIndex, colIndex, value) => {
-    const updatedField = [...field];
-    console.log("Attempting to update the field with activeTile: "+activeTile+"... ")
-    updatedField[rowIndex] = `${updatedField[rowIndex].substring(0, colIndex)}${value}${updatedField[rowIndex].substring(colIndex + 1)}`;
-    setMapData({ ...mapData, field: updatedField });
+    if(value){
+      const updatedField = [...field];
+      console.log("Attempting to update the field with activeTile: "+activeTile+"... ")
+      updatedField[rowIndex] = `${updatedField[rowIndex].substring(0, colIndex)}${value}${updatedField[rowIndex].substring(colIndex + 1)}`;
+      setMapData({ ...mapData, field: updatedField });
+    } else{
+      setSelectedTile({'row': rowIndex,'col': colIndex});
+    }
   };
 
   return (
@@ -25,14 +29,23 @@ const EditorCanvas = () => {
               {field.map((row, rowIndex) => (
                 <Grid container item key={rowIndex} sx={{justifyContent:'center'}}>
                   {row.split('').map((char, colIndex) => (
-                    <Grid item key={colIndex} sx={{maxHeight: '30px', maxWidth: '30px'}}>
-                      <img 
-                        src={`resources/images/tiles/${mapData.tileset + `-` + charToImage[char]}`}
-                        alt={char} 
-                        width="30" 
-                        height="30"
-                        onClick={()=>updateField(rowIndex, colIndex, activeTile)}
-                      ></img>
+                    <Grid item 
+                      key={colIndex} 
+                      className={selectedTile && selectedTile.row === rowIndex && selectedTile.col === colIndex ? 'selectedTile' : ''}
+                      sx={{
+                        maxHeight: '30px', 
+                        maxWidth: '30px',   
+                      }}
+                    >
+                      <div>
+                        <img 
+                          src={`resources/images/tiles/${mapData.tileset + `-` + charToImage[char]}`}
+                          alt={char} 
+                          width="30" 
+                          height="30"
+                          onClick={()=>updateField(rowIndex, colIndex, activeTile)}
+                        ></img>
+                      </div>
                     </Grid>
                   ))}
                 </Grid>
@@ -43,23 +56,6 @@ const EditorCanvas = () => {
       </>
   )
 };
-
-  //assign an image based on the value
-  const TileImage = (row, col, val, clickHandler, tileset) => {
-    let image = "";
-    return(
-      <>
-      <img 
-        src={`resources/images/tiles/${tileset + `-` + charToImage[val]}`}
-        alt={val} 
-        //pos={pos}
-        width="30" 
-        height="30"
-        onClick={clickHandler}
-      ></img>
-      </>
-    )
-  }
 
   const charToImage = {
     '0': 'floor.jpg',

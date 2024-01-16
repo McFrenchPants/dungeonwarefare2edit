@@ -6,6 +6,8 @@ export const AppContext = createContext({
     alert: null,
     showAlert: false,
     loading: false,
+    activeTile: null,
+    selectedTile: null
     //setMapData: () => {},
     //setAlert: () => {},
     //setShowAlert: () => {},
@@ -18,6 +20,7 @@ const AppProvider = ({ children }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [loading, setLoading] = useState(false);
     const [activeTile, setActiveTile] = useState(null);
+    const [selectedTile, setSelectedTile] = useState(null);
 
     const api = {
         alertAction: (action) => actionHandler(action),
@@ -52,6 +55,8 @@ const AppProvider = ({ children }) => {
             setLoading,
             activeTile,
             setActiveTile,
+            selectedTile,
+            setSelectedTile,
             ...api
           }}>
         {children}

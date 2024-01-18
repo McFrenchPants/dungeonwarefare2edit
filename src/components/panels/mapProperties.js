@@ -3,9 +3,12 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useAppState } from '../../appContext';
+import AssistWalkerIcon from '@mui/icons-material/AssistWalker';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import { Slider, Stack } from '@mui/material';
 
 const MapProperties = () => {
-    const { mapData } = useAppState();
+    const { mapData, setMapData } = useAppState();
     const tiles = [
         {value:"stone", label:"Stone"},
         {value:"mines", label:"Mines"},
@@ -26,6 +29,70 @@ const MapProperties = () => {
         {value: "DustStorm", label: "Dust Storm"},
         {value: "Snow", label: "Snow"}
     ];
+    const difficultySettings = [
+        {
+            value: 1,
+            label: 'Easy'
+        },
+        {
+            value: 2,
+            label: ''
+        },
+        {
+            value: 3,
+            label: ''
+        },
+        {
+            value: 4,
+            label: ''
+        },
+        {
+            value: 5,
+            label: 'Normal'
+        },
+        {
+            value: 6,
+            label: ''
+        },
+        {
+            value: 7,
+            label: ''
+        },
+        {
+            value: 8,
+            label: ''
+        },
+        {
+            value: 9,
+            label: ''
+        },
+        {
+            value: 10,
+            label: 'Hard'
+        }
+    ]
+    
+    const updateMapProperty = (property, value) => {
+        const updatedMapData = { ...mapData };
+        const keys = property.split('.'); // In case we got an object
+    
+        if (keys.length === 2) { 
+            const [parentKey, childKey] = keys;
+    
+            // Ensure the parent key exists or create new object
+            if (!updatedMapData[parentKey]) {
+                updatedMapData[parentKey] = {};
+            }
+    
+            updatedMapData[parentKey][childKey] = value; // Update the nested property
+        } else {
+            updatedMapData[property] = value;
+        }
+    
+        console.log('saving update: ', updatedMapData);
+        setMapData(updatedMapData);
+    };
+
     return(
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} columns={16}>
@@ -34,6 +101,7 @@ const MapProperties = () => {
                         label="Map Title"
                         id="map-title"
                         defaultValue={mapData.title}
+                        onBlur={(e) => updateMapProperty('title', e.target.value)}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -45,6 +113,7 @@ const MapProperties = () => {
                         select
                         label="Tile Theme"
                         value={mapData.tileset}
+                        onChange={(e) => updateMapProperty('tileset', e.target.value)}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -63,6 +132,7 @@ const MapProperties = () => {
                         label="Starting Gold"
                         id="start-gold"
                         defaultValue={mapData.startGold}
+                        onBlur={(e) => updateMapProperty('startGold', e.target.value)}
                         size="small"
                         fullWidth
                         variant="standard"
@@ -74,6 +144,7 @@ const MapProperties = () => {
                         select
                         label="Victory Condition"
                         value={mapData.victoryCondition}
+                        onChange={(e) => updateMapProperty('victoryCondition', e.target.value)}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -88,14 +159,19 @@ const MapProperties = () => {
                         </TextField>
                 </Grid>
                 <Grid xs={8}>
-                    <TextField
-                        label="Difficulty"
-                        id="difficulty"
-                        defaultValue={mapData.difficultyFactor}
-                        size="small"
-                        fullWidth
-                        variant="standard"
-                    />
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                        <AssistWalkerIcon />
+                        <Slider aria-label="Difficulty" 
+                            value={mapData.difficultyFactor} 
+                            valueLabelDisplay="on"
+                            marks={difficultySettings}
+                            step={1}
+                            min={1}
+                            max={10}
+                            onChange={(e, newValue) => updateMapProperty('difficultyFactor', newValue)} 
+                        />
+                        <DirectionsRunIcon />
+                    </Stack>
                 </Grid>
                 
                 <Grid xs={8}>
@@ -104,6 +180,7 @@ const MapProperties = () => {
                         select
                         label="Weather Effect"
                         value={mapData.weatherEffectType}
+                        onChange={(e) => updateMapProperty('weatherEffectType', e.target.value)}
                         size="small"
                         fullWidth
                         SelectProps={{
@@ -125,6 +202,7 @@ const MapProperties = () => {
                             label="Gold"
                             id="victory-gold"
                             defaultValue={mapData.victoryParameters.gold}
+                            onBlur={(e) => updateMapProperty('victoryParameters.gold', e.target.value)}
                             size="small"
                             variant="standard"
                         />
@@ -133,6 +211,7 @@ const MapProperties = () => {
                                 label="Time"
                                 id="victory-time"
                                 defaultValue={mapData.victoryParameters.time}
+                                onBlur={(e) => updateMapProperty('victoryParameters.time', e.target.value)}
                                 size="small"
                                 variant="standard"
                             />

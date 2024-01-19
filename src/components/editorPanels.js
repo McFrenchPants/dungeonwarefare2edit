@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import MapProperties from './panels/mapProperties';
 import TileSelector from './panels/tileset';
 import Behaviors from './panels/behaviors';
-import Inspector from './panels/inspector';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,7 +55,7 @@ export default function EditorPanels() {
           <Tab label="Map Properties" {...a11yProps(0)} />
           <Tab label="Tiles" {...a11yProps(1)} />
           <Tab label="Behaviors" {...a11yProps(2)} />
-          <Tab label="Inspector" {...a11yProps(3)} />
+          <Tab label="About" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -69,7 +68,7 @@ export default function EditorPanels() {
         <Behaviors/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <Inspector/>
+        Developed by a monkey
       </CustomTabPanel>
     </Box>
   );

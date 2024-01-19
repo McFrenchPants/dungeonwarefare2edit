@@ -14,7 +14,7 @@ const Inspector = () => {
 
     if(mapData.prebuiltTraps){traps=Object.entries(mapData.prebuiltTraps);}
     if(mapData.decorations){decorations=Object.entries(mapData.decorations);}
-    if(selectedTile){tile = selectedTile;}
+    if(selectedTile){tile = {row:selectedTile[0],col:selectedTile[1]};}
 
     const getDecoration = decorations.find(
         item => item.row === tile.row && item.col === tile.col

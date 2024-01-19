@@ -1,9 +1,11 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import { useAppState } from '../appContext';
+import getTerrainByLocation from '../utils/getTerrainByLocation'
 
 const EditorCanvas = () => {
-  const { mapData, setMapData, activeTile, selectedTile, setSelectedTile } = useAppState();
+  const { mapData, setMapData, activeTile, setActiveTile, selectedTile, setSelectedTile, setSelectedTerrain, setHoverTile } = useAppState();
+  
   const hasField = mapData !== null;
   let field = null;
   if(hasField){
@@ -36,14 +38,20 @@ const EditorCanvas = () => {
     // Add more mappings as needed
   };
 
-  const updateField = (rowIndex, colIndex, value) => {
-    if(value){
+  const unsetActiveTile = (e) => {
+    e.preventDefault();
+    setActiveTile(null);
+  }
+  const updateField = (rowIndex, colIndex) => {
+    if(activeTile){
       const updatedField = [...field];
       console.log("Attempting to update the field with activeTile: "+activeTile+"... ")
-      updatedField[rowIndex] = `${updatedField[rowIndex].substring(0, colIndex)}${value}${updatedField[rowIndex].substring(colIndex + 1)}`;
+      updatedField[rowIndex] = `${updatedField[rowIndex].substring(0, colIndex)}${activeTile}${updatedField[rowIndex].substring(colIndex + 1)}`;
       setMapData({ ...mapData, field: updatedField });
     } else{
-      setSelectedTile({'row': rowIndex,'col': colIndex});
+      const terrain = getTerrainByLocation(rowIndex,colIndex, mapData);
+      setSelectedTerrain(terrain);
+      setSelectedTile([rowIndex,colIndex]);
     }
   };
 
@@ -57,7 +65,7 @@ const EditorCanvas = () => {
                   {row.split('').map((char, colIndex) => (
                     <Grid item 
                       key={colIndex} 
-                      className={selectedTile && selectedTile.row === rowIndex && selectedTile.col === colIndex ? 'selectedTile' : ''}
+                      className={selectedTile && selectedTile[0] === rowIndex && selectedTile[1] === colIndex ? 'selectedTile' : ''}
                       sx={{
                         maxHeight: '30px', 
                         maxWidth: '30px',   
@@ -69,7 +77,9 @@ const EditorCanvas = () => {
                           alt={char} 
                           width="30" 
                           height="30"
-                          onClick={()=>updateField(rowIndex, colIndex, activeTile)}
+                          onContextMenu={(e)=>unsetActiveTile(e)}
+                          onClick={()=>updateField(rowIndex, colIndex)}
+                          onMouseOver={()=>setHoverTile([rowIndex, colIndex])}
                         ></img>
                       </div>
                     </Grid>

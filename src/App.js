@@ -6,6 +6,7 @@ import AlertDialog from './components/alertDialog';
 import { useAppState } from './appContext';
 import { CssBaseline, LinearProgress, ThemeProvider, createTheme } from '@mui/material';
 import dwTheme from './dwTheme';
+import StatusPanel from './components/panels/statusPanel';
 
 const theme = createTheme(dwTheme);
 
@@ -24,6 +25,7 @@ function App() {
           {mapData &&
             <>
               <EditorCanvas/>
+              <StatusPanel/>
               <EditorPanels/>
             </>
           }

@@ -1,18 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import mapDefaults from './resources/mapDefaults';
 
-export const AppContext = createContext({
-    mapData: null,
-    alert: null,
-    showAlert: false,
-    loading: false,
-    activeTile: null,
-    selectedTile: null
-    //setMapData: () => {},
-    //setAlert: () => {},
-    //setShowAlert: () => {},
-    //setIsLoading: () => {},
-});
+export const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
     const [mapData, setMapData] = useState(null);
@@ -21,6 +10,10 @@ const AppProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [activeTile, setActiveTile] = useState(null);
     const [selectedTile, setSelectedTile] = useState(null);
+    const [hoverTile, setHoverTile] = useState(null);
+    const [selectedTrap, setSelectedTrap] = useState(null);
+    const [selectedDecor, setSelectedDecor] = useState(null);
+    const [selectedTerrain, setSelectedTerrain] = useState(null);
 
     const api = {
         alertAction: (action) => actionHandler(action),
@@ -57,6 +50,14 @@ const AppProvider = ({ children }) => {
             setActiveTile,
             selectedTile,
             setSelectedTile,
+            hoverTile,
+            setHoverTile,
+            selectedTrap,
+            setSelectedTrap,
+            selectedDecor,
+            setSelectedDecor,
+            selectedTerrain,
+            setSelectedTerrain,
             ...api
           }}>
         {children}

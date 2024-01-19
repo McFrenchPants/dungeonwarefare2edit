@@ -1,7 +1,4 @@
 const dwTheme = {
-  typography: {
-    fontFamily: ["Arvo", "Helvetica", "Arial", "sans-serif"].join(",")
-  },
   palette: {
     mode: 'dark',
     primary: {
@@ -13,6 +10,17 @@ const dwTheme = {
     background: {
       default: '#101010',
     },
+  },typography: {
+    fontFamily: ["Arvo", "Helvetica", "Arial", "sans-serif"].join(","),
+    subtitle2: {
+      fontSize: '0.7rem',
+      textTransform: 'uppercase',
+      fontFamily: '"M PLUS Rounded 1c", Arial'
+    },
+    body:{
+      fontFamily: '"M PLUS Rounded 1c", Arial',
+      fontSize: '0.9rem'
+    }
   },
 };
 export default dwTheme;

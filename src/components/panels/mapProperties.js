@@ -5,7 +5,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useAppState } from '../../appContext';
 import AssistWalkerIcon from '@mui/icons-material/AssistWalker';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import { Slider, Stack } from '@mui/material';
+import PaidIcon from '@mui/icons-material/Paid';
+import { InputAdornment, Slider, Stack } from '@mui/material';
 
 const MapProperties = () => {
     const { mapData, setMapData } = useAppState();
@@ -95,8 +96,8 @@ const MapProperties = () => {
 
     return(
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} columns={16}>
-                <Grid xs={8}>
+            <Grid container spacing={6} columns={16}>
+                <Grid xs={12}>
                     <TextField
                         label="Map Title"
                         id="map-title"
@@ -107,11 +108,11 @@ const MapProperties = () => {
                         variant="standard"
                     />
                 </Grid>
-                <Grid xs={8}>
+                <Grid xs={4}>
                     <TextField
                         id="tileset"
                         select
-                        label="Tile Theme"
+                        label="Map Theme"
                         value={mapData.tileset}
                         onChange={(e) => updateMapProperty('tileset', e.target.value)}
                         size="small"
@@ -127,10 +128,17 @@ const MapProperties = () => {
                         ))}
                     </TextField>
                 </Grid>
-                <Grid xs={8}>
+                <Grid xs={4}>
                     <TextField
                         label="Starting Gold"
                         id="start-gold"
+                        InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <PaidIcon color="primary"/>
+                              </InputAdornment>
+                            ),
+                          }}
                         defaultValue={mapData.startGold}
                         onBlur={(e) => updateMapProperty('startGold', e.target.value)}
                         size="small"
@@ -138,7 +146,22 @@ const MapProperties = () => {
                         variant="standard"
                     />
                 </Grid>
-                <Grid xs={8}>
+                <Grid xs={4}>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                        <AssistWalkerIcon />
+                        <Slider aria-label="Difficulty" 
+                            value={mapData.difficultyFactor} 
+                            valueLabelDisplay="on"
+                            marks={difficultySettings}
+                            step={1}
+                            min={1}
+                            max={10}
+                            onChange={(e, newValue) => updateMapProperty('difficultyFactor', newValue)} 
+                        />
+                        <DirectionsRunIcon />
+                    </Stack>
+                </Grid>
+                <Grid xs={4}>
                     <TextField
                         id="victory-condition"
                         select
@@ -158,23 +181,7 @@ const MapProperties = () => {
                         ))}
                         </TextField>
                 </Grid>
-                <Grid xs={8}>
-                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                        <AssistWalkerIcon />
-                        <Slider aria-label="Difficulty" 
-                            value={mapData.difficultyFactor} 
-                            valueLabelDisplay="on"
-                            marks={difficultySettings}
-                            step={1}
-                            min={1}
-                            max={10}
-                            onChange={(e, newValue) => updateMapProperty('difficultyFactor', newValue)} 
-                        />
-                        <DirectionsRunIcon />
-                    </Stack>
-                </Grid>
-                
-                <Grid xs={8}>
+                <Grid xs={4}>
                     <TextField
                         id="weather-effect-type"
                         select
@@ -194,6 +201,10 @@ const MapProperties = () => {
                         ))}
                     </TextField>
                 </Grid>
+                
+                
+                
+                
                 {mapData.victoryCondition === "CollectGold" && (
                 <Grid xs={16}>
                     Victory Parameters<br/>
